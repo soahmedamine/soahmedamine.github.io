@@ -309,13 +309,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Skill bars animation
     const animateSkillBars = () => {
-        skillProgressBars.forEach(bar => {
+        skillProgressBars.forEach((bar, index) => {
             const skillLevel = bar.getAttribute('data-skill');
-            const rect = bar.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                bar.style.width = skillLevel + '%';
+            if (skillLevel && !isNaN(skillLevel)) {
+                // Reset width first, then animate with staggered delay
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = skillLevel + '%';
+                }, 100 + (index * 50)); // Staggered animation
             }
         });
     };
@@ -862,5 +863,22 @@ document.addEventListener('DOMContentLoaded', () => {
         category.addEventListener('mouseleave', () => {
             category.style.transform = 'translateY(0) scale(1)';
         });
+    });
+
+    // Fallback skill bar animation on scroll
+    let skillBarsAnimated = false;
+    window.addEventListener('scroll', () => {
+        if (!skillBarsAnimated) {
+            const skillsSection = document.getElementById('skills');
+            if (skillsSection) {
+                const rect = skillsSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight && rect.bottom > 0) {
+                    animateSkillBars();
+                    skillBarsAnimated = true;
+                }
+            }
+        }
     });
 });
