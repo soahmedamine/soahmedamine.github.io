@@ -839,19 +839,30 @@ document.addEventListener('DOMContentLoaded', initLazyLoading);
 
 // Add some interactive hover effects
 document.addEventListener('DOMContentLoaded', () => {
-    // Add hover effect to project cards
+    // Project Accordion Functionality
     const projectCards = document.querySelectorAll('.project-card');
+    
     projectCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px) scale(1.02)';
-            card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
-        });
+        const header = card.querySelector('.project-header');
         
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) scale(1)';
-            card.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.1)';
+        header.addEventListener('click', () => {
+            // Check if this card is already active
+            const isActive = card.classList.contains('active');
+            
+            // Close all cards
+            projectCards.forEach(c => c.classList.remove('active'));
+            
+            // If the clicked card wasn't active, open it
+            if (!isActive) {
+                card.classList.add('active');
+            }
         });
     });
+
+    // Optional: Open the first project by default
+    if (projectCards.length > 0) {
+        projectCards[0].classList.add('active');
+    }
     
     // Add hover effect to skill categories
     const skillCategories = document.querySelectorAll('.skill-category');

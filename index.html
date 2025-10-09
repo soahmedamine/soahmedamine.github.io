@@ -59,7 +59,8 @@
             <div class="hero-image">
                 <div class="profile-card">
                     <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
+                        <!-- <i class="fas fa-user"></i> -->
+                        <img src="ahmed.png" alt="Ahmed Amine Soualhi" class="profile-img" style="width: 70px; height: 90px; border-radius: 50%;">
                     </div>
                     <div class="floating-icons">
                         <i class="fab fa-js-square tech-icon js"></i>
@@ -385,13 +386,21 @@
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title" data-translate="projects-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-shopping-cart project-icon"></i>
+            <div class="projects-accordion">
+                <div class="project-card accordion-item">
+                    <div class="project-header">
+                        <div class="project-header-content">
+                            <div class="project-icon-wrapper">
+                                <i class="fas fa-shopping-cart project-icon"></i>
+                            </div>
+                            <div class="project-title-wrapper">
+                                <h3 data-translate="project-hotel-title">E-commerce Platform</h3>
+                                <p class="project-summary">Spring Boot • Angular • MySQL</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project-hotel-title">E-commerce Platform</h3>
                         <p data-translate="project-hotel-desc">Comprehensive e-commerce platform with product catalog, shopping cart, and payment integration</p>
                         <div class="project-tech">
                             <span class="tech-tag">Spring Boot</span>
@@ -409,12 +418,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-mobile-alt project-icon"></i>
+                <div class="project-card accordion-item">
+                    <div class="project-header">
+                        <div class="project-header-content">
+                            <div class="project-icon-wrapper">
+                                <i class="fas fa-mobile-alt project-icon"></i>
+                            </div>
+                            <div class="project-title-wrapper">
+                                <h3 data-translate="project-mobile-title">Mobile Application Development</h3>
+                                <p class="project-summary">React Native • Node.js • Flutter</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project-mobile-title">Mobile Application Development</h3>
                         <p data-translate="project-mobile-desc">Cross-platform mobile applications with modern UI/UX design and backend integration</p>
                         <div class="project-tech">
                             <span class="tech-tag">React Native</span>
@@ -432,12 +449,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-globe project-icon"></i>
+                <div class="project-card accordion-item">
+                    <div class="project-header">
+                        <div class="project-header-content">
+                            <div class="project-icon-wrapper">
+                                <i class="fas fa-globe project-icon"></i>
+                            </div>
+                            <div class="project-title-wrapper">
+                                <h3 data-translate="project-web-title">Full-Stack Web Applications</h3>
+                                <p class="project-summary">Angular • Spring Boot • PostgreSQL</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <h3 data-translate="project-web-title">Full-Stack Web Applications</h3>
                         <p data-translate="project-web-desc">Enterprise-level web applications with scalable architecture and modern technology stack</p>
                         <div class="project-tech">
                             <span class="tech-tag">Angular</span>
