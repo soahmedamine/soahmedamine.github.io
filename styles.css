@@ -233,9 +233,16 @@ body {
 
 .hero-buttons {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     opacity: 0;
     animation: fadeInUp 1s ease forwards 0.8s;
+}
+
+.cv-download-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
 }
 
 .btn {
@@ -273,6 +280,26 @@ body {
     background: white;
     color: #333;
     transform: translateY(-2px);
+}
+
+.btn-download {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(10px);
+}
+
+.btn-download:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+.btn-download i {
+    font-size: 0.9rem;
 }
 
 .profile-card {
@@ -898,6 +925,17 @@ section {
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        width: 100%;
+    }
+
+    .cv-download-group {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .btn-download {
+        width: 100%;
+        justify-content: center;
     }
 
     .about-content {

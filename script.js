@@ -18,6 +18,8 @@ const translations = {
         'hero-description': 'Passionate about designing robust software architectures and building scalable, enterprise-level applications with cutting-edge technologies and best practices.',
         'btn-contact': 'Get In Touch',
         'btn-projects': 'View My Work',
+        'btn-cv-en': 'CV (EN)',
+        'btn-cv-fr': 'CV (FR)',
         'about-title': 'About Me',
         'about-description': "I'm a passionate Software Architect Engineer with extensive experience in designing and building scalable software systems. I specialize in full-stack development, system architecture, and creating innovative solutions that drive business success.",
         'skills-title': 'Technical Skills',
@@ -75,6 +77,8 @@ const translations = {
         'hero-description': 'Passionné par la conception d\'architectures logicielles robustes et la création d\'applications évolutives de niveau entreprise avec des technologies de pointe et les meilleures pratiques.',
         'btn-contact': 'Contactez-moi',
         'btn-projects': 'Voir Mon Travail',
+        'btn-cv-en': 'CV (EN)',
+        'btn-cv-fr': 'CV (FR)',
         'about-title': 'À Propos de Moi',
         'about-description': "Je suis un Ingénieur Architecte Logiciel passionné avec une vaste expérience dans la conception et la construction de systèmes logiciels évolutifs. Je me spécialise dans le développement full-stack, l'architecture système et la création de solutions innovantes qui favorisent le succès commercial.",
         'skills-title': 'Compétences Techniques',
@@ -132,6 +136,8 @@ const translations = {
         'hero-description': 'شغوف بتصميم هياكل برمجية قوية وبناء تطبيقات قابلة للتوسع على مستوى المؤسسات باستخدام أحدث التقنيات وأفضل الممارسات.',
         'btn-contact': 'تواصل معي',
         'btn-projects': 'اطلع على أعمالي',
+        'btn-cv-en': 'السيرة الذاتية (EN)',
+        'btn-cv-fr': 'السيرة الذاتية (FR)',
         'about-title': 'نبذة عني',
         'about-description': 'أنا مهندس معماري برمجيات شغوف بخبرة واسعة في تصميم وبناء أنظمة برمجية قابلة للتوسع. أتخصص في التطوير المتكامل وهندسة الأنظمة وإنشاء حلول مبتكرة تدفع النجاح التجاري.',
         'skills-title': 'المهارات التقنية',
@@ -189,6 +195,8 @@ const translations = {
         'hero-description': 'Leidenschaftlich für das Design robuster Software-Architekturen und die Entwicklung skalierbarer Anwendungen auf Unternehmensebene mit modernsten Technologien und bewährten Praktiken.',
         'btn-contact': 'Kontakt Aufnehmen',
         'btn-projects': 'Meine Arbeit Ansehen',
+        'btn-cv-en': 'Lebenslauf (EN)',
+        'btn-cv-fr': 'Lebenslauf (FR)',
         'about-title': 'Über Mich',
         'about-description': 'Ich bin ein leidenschaftlicher Software-Architektur-Ingenieur mit umfangreicher Erfahrung im Design und Aufbau skalierbarer Softwaresysteme. Ich spezialisiere mich auf Full-Stack-Entwicklung, Systemarchitektur und die Schaffung innovativer Lösungen, die den Geschäftserfolg vorantreiben.',
         'skills-title': 'Technische Fähigkeiten',
@@ -1080,6 +1088,18 @@ const darkThemeStyles = `
     .dark-theme .btn-secondary:hover {
         background: var(--accent-primary);
         border-color: var(--accent-primary);
+    }
+    
+    .dark-theme .btn-download {
+        background: rgba(96, 165, 250, 0.15);
+        border: 2px solid rgba(96, 165, 250, 0.3);
+        color: var(--text-primary);
+    }
+    
+    .dark-theme .btn-download:hover {
+        background: rgba(96, 165, 250, 0.25);
+        border-color: var(--accent-primary);
+        box-shadow: 0 5px 15px rgba(96, 165, 250, 0.3);
     }
     
     /* Footer */
