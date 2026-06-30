@@ -3,31 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ahmed Amine Soualhi — Software Architect Engineer & Full Stack Developer. Designing scalable, enterprise-grade software.">
+    <meta name="theme-color" content="#0ea5e9">
     <title>Ahmed Amine Soualhi | Software Architect Engineer</title>
+
+    <!-- Prevent theme flash: set data-theme before paint -->
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+                document.documentElement.setAttribute('data-theme', theme);
+            } catch (e) {}
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Animated background -->
+    <div class="bg-aurora" aria-hidden="true">
+        <span class="aurora-blob blob-1"></span>
+        <span class="aurora-blob blob-2"></span>
+        <span class="aurora-blob blob-3"></span>
+    </div>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">
+            <a href="#home" class="nav-logo" data-section="home">
+                <span class="logo-mark">AS</span>
                 <span class="logo-text">Ahmed Amine Soualhi</span>
-            </div>
+            </a>
+
             <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link" data-section="home" data-translate="nav-home">Home</a>
+                <a href="#home" class="nav-link active" data-section="home" data-translate="nav-home">Home</a>
                 <a href="#about" class="nav-link" data-section="about" data-translate="nav-about">About</a>
                 <a href="#skills" class="nav-link" data-section="skills" data-translate="nav-skills">Skills</a>
                 <a href="#projects" class="nav-link" data-section="projects" data-translate="nav-projects">Projects</a>
                 <a href="#contact" class="nav-link" data-section="contact" data-translate="nav-contact">Contact</a>
-                <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en">🇺🇸</button>
-                    <button class="lang-btn" data-lang="fr">🇫🇷</button>
-                    <button class="lang-btn" data-lang="ar">🇦🇪</button>
-                    <button class="lang-btn" data-lang="de">🇩🇪</button>
+
+                <div class="nav-controls">
+                    <div class="language-switcher">
+                        <button class="lang-btn active" data-lang="en" aria-label="English">🇺🇸</button>
+                        <button class="lang-btn" data-lang="fr" aria-label="Français">🇫🇷</button>
+                        <button class="lang-btn" data-lang="ar" aria-label="العربية">🇦🇪</button>
+                        <button class="lang-btn" data-lang="de" aria-label="Deutsch">🇩🇪</button>
+                    </div>
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon icon-moon"></i>
+                        <i class="fas fa-sun icon-sun"></i>
+                    </button>
                 </div>
             </div>
-            <div class="hamburger" id="hamburger">
+
+            <div class="hamburger" id="hamburger" aria-label="Open menu" role="button" tabindex="0">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -38,11 +75,13 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-container">
-            <div class="hero-content">
+            <div class="hero-content reveal">
+                <span class="hero-badge"><span class="status-dot"></span> <span data-translate="hero-badge">Available for new projects</span></span>
                 <h1 class="hero-title">
-                    Hi, I'm <span class="highlight">Ahmed Amine Soualhi</span>
+                    <span data-translate="hero-greeting">Hi, I'm</span>
+                    <span class="highlight">Ahmed Amine Soualhi</span>
                 </h1>
-                <p class="hero-subtitle" data-translate="hero-subtitle">Software Architect Engineer & Full Stack Developer</p>
+                <p class="hero-subtitle" data-translate="hero-subtitle">Software Architect Engineer &amp; Full Stack Developer</p>
                 <p class="hero-description" data-translate="hero-description">
                     Passionate about designing robust software architectures and building scalable, enterprise-level applications
                     with cutting-edge technologies and best practices.
@@ -66,14 +105,18 @@
                     </div>
                 </div>
             </div>
-            <div class="hero-image">
+
+            <div class="hero-image reveal">
                 <div class="profile-card">
-                    <div class="profile-avatar" style="position: relative;">
-                        <i class="fas fa-user" id="avatar-icon" style="font-size: 70px;"></i>
-                        <img src="ahmed.png" alt="Ahmed Amine Soualhi" class="profile-img" style="width: 70px; height: 90px; border-radius: 50%; display: none;  top: 0; left: 0;" 
-                             onload="this.style.display='block'; document.getElementById('avatar-icon').style.display='none';"
+                    <div class="profile-ring"></div>
+                    <div class="profile-avatar">
+                        <i class="fas fa-user" id="avatar-icon"></i>
+                        <img src="AHMED.png" alt="Ahmed Amine Soualhi" class="profile-img"
+                             onload="this.classList.add('loaded'); document.getElementById('avatar-icon').style.display='none';"
                              onerror="this.style.display='none'; document.getElementById('avatar-icon').style.display='block';">
                     </div>
+                    <div class="profile-name">Ahmed Amine Soualhi</div>
+                    <div class="profile-role" data-translate="hero-subtitle">Software Architect Engineer</div>
                     <div class="floating-icons">
                         <i class="fab fa-js-square tech-icon js"></i>
                         <i class="fab fa-angular tech-icon angular"></i>
@@ -83,14 +126,18 @@
                 </div>
             </div>
         </div>
+        <a href="#about" class="scroll-cue" data-section="about" aria-label="Scroll down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2 class="section-title" data-translate="about-title">About Me</h2>
+            <span class="section-eyebrow reveal" data-translate="about-eyebrow">Get to know me</span>
+            <h2 class="section-title reveal" data-translate="about-title">About Me</h2>
             <div class="about-content">
-                <div class="about-text">
+                <div class="about-text reveal">
                     <p class="about-description" data-translate="about-description">
                         I'm a passionate Software Architect Engineer with extensive experience in designing and building scalable software systems.
                         I specialize in full-stack development, system architecture, and creating innovative solutions that drive business success.
@@ -110,7 +157,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
+                <div class="about-image reveal">
                     <div class="experience-timeline">
                         <div class="timeline-item">
                             <div class="timeline-dot"></div>
@@ -142,9 +189,10 @@
     <!-- Skills Section -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title" data-translate="skills-title">Technical Skills</h2>
+            <span class="section-eyebrow reveal" data-translate="skills-eyebrow">What I work with</span>
+            <h2 class="section-title reveal" data-translate="skills-title">Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-category">
+                <div class="skill-category reveal">
                     <h3 data-translate="skills-frontend">Frontend</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -177,7 +225,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category reveal">
                     <h3 data-translate="skills-backend">Backend</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -210,7 +258,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category reveal">
                     <h3 data-translate="skills-database">Database</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -243,8 +291,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3 data-translate="skills-tools">Tools & DevOps</h3>
+                <div class="skill-category reveal">
+                    <h3 data-translate="skills-tools">Tools &amp; DevOps</h3>
                     <div class="skill-items">
                         <div class="skill-item">
                             <i class="fab fa-git-alt"></i>
@@ -276,7 +324,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
+                <div class="skill-category reveal">
                     <h3 data-translate="skills-languages">Languages</h3>
                     <div class="skill-items">
                         <div class="skill-item">
@@ -305,8 +353,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3 data-translate="skills-apis">APIs & Web Services</h3>
+                <div class="skill-category reveal">
+                    <h3 data-translate="skills-apis">APIs &amp; Web Services</h3>
                     <div class="skill-items">
                         <div class="skill-item">
                             <i class="fas fa-exchange-alt"></i>
@@ -331,8 +379,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3 data-translate="skills-team">Team & Leadership</h3>
+                <div class="skill-category reveal">
+                    <h3 data-translate="skills-team">Team &amp; Leadership</h3>
                     <div class="skill-items">
                         <div class="skill-item">
                             <i class="fas fa-users"></i>
@@ -364,8 +412,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3 data-translate="skills-systems">Systems & Virtualization</h3>
+                <div class="skill-category reveal">
+                    <h3 data-translate="skills-systems">Systems &amp; Virtualization</h3>
                     <div class="skill-items">
                         <div class="skill-item">
                             <i class="fab fa-linux"></i>
@@ -397,9 +445,10 @@
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2 class="section-title" data-translate="projects-title">Featured Projects</h2>
+            <span class="section-eyebrow reveal" data-translate="projects-eyebrow">Some of my work</span>
+            <h2 class="section-title reveal" data-translate="projects-title">Featured Projects</h2>
             <div class="projects-accordion">
-                <div class="project-card accordion-item">
+                <div class="project-card accordion-item reveal">
                     <div class="project-header">
                         <div class="project-header-content">
                             <div class="project-icon-wrapper">
@@ -413,24 +462,26 @@
                         <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <p data-translate="project-hotel-desc">Comprehensive e-commerce platform with product catalog, shopping cart, and payment integration</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">Angular</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">REST API</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/soahmedamine" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
-                            </a>
-                            <a href="#contact" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
-                            </a>
+                        <div class="project-content-inner">
+                            <p data-translate="project-hotel-desc">Comprehensive e-commerce platform with product catalog, shopping cart, and payment integration</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">Angular</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">REST API</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/soahmedamine" target="_blank" rel="noopener" class="project-link">
+                                    <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
+                                </a>
+                                <a href="#contact" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="project-card accordion-item">
+                <div class="project-card accordion-item reveal">
                     <div class="project-header">
                         <div class="project-header-content">
                             <div class="project-icon-wrapper">
@@ -444,24 +495,26 @@
                         <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <p data-translate="project-mobile-desc">Cross-platform mobile applications with modern UI/UX design and backend integration</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">React Native</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Express.js</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/soahmedamine" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
-                            </a>
-                            <a href="#contact" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
-                            </a>
+                        <div class="project-content-inner">
+                            <p data-translate="project-mobile-desc">Cross-platform mobile applications with modern UI/UX design and backend integration</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">React Native</span>
+                                <span class="tech-tag">Node.js</span>
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Express.js</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/soahmedamine" target="_blank" rel="noopener" class="project-link">
+                                    <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
+                                </a>
+                                <a href="#contact" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="project-card accordion-item">
+                <div class="project-card accordion-item reveal">
                     <div class="project-header">
                         <div class="project-header-content">
                             <div class="project-icon-wrapper">
@@ -475,24 +528,25 @@
                         <i class="fas fa-chevron-down accordion-toggle"></i>
                     </div>
                     <div class="project-content">
-                        <p data-translate="project-web-desc">Enterprise-level web applications with scalable architecture and modern technology stack</p>
-                        <div class="project-tech">
-                            <span class="tech-tag">Angular</span>
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">PostgreSQL</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/soahmedamine" target="_blank" class="project-link">
-                                <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
-                            </a>
-                            <a href="#contact" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
-                            </a>
+                        <div class="project-content-inner">
+                            <p data-translate="project-web-desc">Enterprise-level web applications with scalable architecture and modern technology stack</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Angular</span>
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Docker</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/soahmedamine" target="_blank" rel="noopener" class="project-link">
+                                    <i class="fab fa-github"></i> <span data-translate="project-code">Code</span>
+                                </a>
+                                <a href="#contact" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> <span data-translate="project-demo">Demo</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-              
             </div>
         </div>
     </section>
@@ -500,38 +554,39 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title" data-translate="contact-title">Get In Touch</h2>
+            <span class="section-eyebrow reveal" data-translate="contact-eyebrow">Let's talk</span>
+            <h2 class="section-title reveal" data-translate="contact-title">Get In Touch</h2>
             <div class="contact-content">
-                <div class="contact-info">
+                <div class="contact-info reveal">
                     <h3 data-translate="contact-subtitle">Let's Connect</h3>
                     <p data-translate="contact-description">I'm always interested in hearing about new opportunities and interesting projects.</p>
                     <div class="contact-items">
-                        <div class="contact-item">
+                        <a class="contact-item" href="mailto:soualhi.ahmedamine@esprit.tn">
                             <i class="fas fa-envelope"></i>
                             <span>soualhi.ahmedamine@esprit.tn</span>
-                        </div>
-                        <div class="contact-item">
+                        </a>
+                        <a class="contact-item" href="tel:+21653969043">
                             <i class="fas fa-phone"></i>
                             <span>+216 53969043</span>
-                        </div>
+                        </a>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span>Tunis, Tunisia</span>
+                            <span data-translate="contact-location">Tunis, Tunisia</span>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://github.com/soahmedamine" target="_blank" class="social-link">
+                        <a href="https://github.com/soahmedamine" target="_blank" rel="noopener" class="social-link" aria-label="GitHub">
                             <i class="fab fa-github"></i>
                         </a>
-                        <a href="https://linkedin.com/in/soahmedamine" target="_blank" class="social-link">
+                        <a href="https://linkedin.com/in/soahmedamine" target="_blank" rel="noopener" class="social-link" aria-label="LinkedIn">
                             <i class="fab fa-linkedin"></i>
                         </a>
-                        <a href="mailto:soualhi.ahmedamine@esprit.tn" class="social-link">
+                        <a href="mailto:soualhi.ahmedamine@esprit.tn" class="social-link" aria-label="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>
                 </div>
-                <div class="contact-form">
+                <div class="contact-form reveal">
                     <form id="contactForm">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Your Name" required>
@@ -545,7 +600,7 @@
                         <div class="form-group">
                             <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-paper-plane"></i> <span data-translate="btn-send">Send Message</span>
                         </button>
                     </form>
@@ -557,7 +612,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-                        <p data-translate="footer-text">&copy; 2025 Ahmed Amine. All rights reserved.</p>
+            <p data-translate="footer-text">&copy; 2025 Ahmed Amine. All rights reserved.</p>
         </div>
     </footer>
 

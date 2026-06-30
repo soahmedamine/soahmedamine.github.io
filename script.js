@@ -1,12 +1,23 @@
+// ============================================================
+//  Ahmed Amine Soualhi — Portfolio
+//  Behavior layer: i18n, theme, nav, animations, accordion, form
+// ============================================================
+
 // DOM Elements
-const navbar = document.querySelector('.navbar');
+const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const skillProgressBars = document.querySelectorAll('.skill-progress');
 const contactForm = document.getElementById('contactForm');
+const themeToggle = document.getElementById('theme-toggle');
+const scrollProgress = document.getElementById('scroll-progress');
 
-// Translation data
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ============================================================
+//  Translations
+// ============================================================
 const translations = {
     en: {
         'nav-home': 'Home',
@@ -14,16 +25,22 @@ const translations = {
         'nav-skills': 'Skills',
         'nav-projects': 'Projects',
         'nav-contact': 'Contact',
+        'hero-badge': 'Available for new projects',
+        'hero-greeting': "Hi, I'm",
         'hero-subtitle': 'Software Architect Engineer & Full Stack Developer',
         'hero-description': 'Passionate about designing robust software architectures and building scalable, enterprise-level applications with cutting-edge technologies and best practices.',
         'btn-contact': 'Get In Touch',
         'btn-projects': 'View My Work',
         'btn-cv-en': 'CV (EN)',
         'btn-cv-fr': 'CV (FR)',
+        'about-eyebrow': 'Get to know me',
         'about-title': 'About Me',
         'about-description': "I'm a passionate Software Architect Engineer with extensive experience in designing and building scalable software systems. I specialize in full-stack development, system architecture, and creating innovative solutions that drive business success.",
+        'skills-eyebrow': 'What I work with',
         'skills-title': 'Technical Skills',
+        'projects-eyebrow': 'Some of my work',
         'projects-title': 'Featured Projects',
+        'contact-eyebrow': "Let's talk",
         'contact-title': 'Get In Touch',
         'contact-subtitle': "Let's Connect",
         'contact-description': "I'm always interested in hearing about new opportunities and interesting projects.",
@@ -56,7 +73,7 @@ const translations = {
         // Footer
         'footer-text': '© 2025 Ahmed Amine. All rights reserved.',
         // Projects
-        'project-hotel-title': 'E-commerce Site',
+        'project-hotel-title': 'E-commerce Platform',
         'project-hotel-desc': 'Comprehensive e-commerce platform with product catalog, shopping cart, and payment integration',
         'project-mobile-title': 'Mobile Application Development',
         'project-mobile-desc': 'Cross-platform mobile applications with modern UI/UX design and backend integration',
@@ -73,16 +90,22 @@ const translations = {
         'nav-skills': 'Compétences',
         'nav-projects': 'Projets',
         'nav-contact': 'Contact',
+        'hero-badge': 'Disponible pour de nouveaux projets',
+        'hero-greeting': 'Bonjour, je suis',
         'hero-subtitle': 'Ingénieur Architecte Logiciel & Développeur Full Stack',
         'hero-description': 'Passionné par la conception d\'architectures logicielles robustes et la création d\'applications évolutives de niveau entreprise avec des technologies de pointe et les meilleures pratiques.',
         'btn-contact': 'Contactez-moi',
         'btn-projects': 'Voir Mon Travail',
         'btn-cv-en': 'CV (EN)',
         'btn-cv-fr': 'CV (FR)',
+        'about-eyebrow': 'Faites connaissance',
         'about-title': 'À Propos de Moi',
         'about-description': "Je suis un Ingénieur Architecte Logiciel passionné avec une vaste expérience dans la conception et la construction de systèmes logiciels évolutifs. Je me spécialise dans le développement full-stack, l'architecture système et la création de solutions innovantes qui favorisent le succès commercial.",
+        'skills-eyebrow': 'Mes outils',
         'skills-title': 'Compétences Techniques',
+        'projects-eyebrow': 'Quelques réalisations',
         'projects-title': 'Projets en Vedette',
+        'contact-eyebrow': 'Discutons',
         'contact-title': 'Contactez-moi',
         'contact-subtitle': 'Connectons-nous',
         'contact-description': "Je suis toujours intéressé à entendre parler de nouvelles opportunités et de projets intéressants.",
@@ -115,7 +138,7 @@ const translations = {
         // Footer
         'footer-text': '© 2025 Ahmed Amine. Tous droits réservés.',
         // Projects
-        'project-hotel-title': 'Site E-commerce',
+        'project-hotel-title': 'Plateforme E-commerce',
         'project-hotel-desc': 'Plateforme e-commerce complète avec catalogue de produits, panier d\'achat et intégration de paiement',
         'project-mobile-title': 'Développement d\'Applications Mobile',
         'project-mobile-desc': 'Applications mobiles multiplateformes avec design UI/UX moderne et intégration backend',
@@ -132,16 +155,22 @@ const translations = {
         'nav-skills': 'المهارات',
         'nav-projects': 'المشاريع',
         'nav-contact': 'التواصل',
+        'hero-badge': 'متاح لمشاريع جديدة',
+        'hero-greeting': 'مرحباً، أنا',
         'hero-subtitle': 'مهندس معماري برمجيات ومطور متكامل',
         'hero-description': 'شغوف بتصميم هياكل برمجية قوية وبناء تطبيقات قابلة للتوسع على مستوى المؤسسات باستخدام أحدث التقنيات وأفضل الممارسات.',
         'btn-contact': 'تواصل معي',
         'btn-projects': 'اطلع على أعمالي',
         'btn-cv-en': 'السيرة الذاتية (EN)',
         'btn-cv-fr': 'السيرة الذاتية (FR)',
+        'about-eyebrow': 'تعرّف عليّ',
         'about-title': 'نبذة عني',
         'about-description': 'أنا مهندس معماري برمجيات شغوف بخبرة واسعة في تصميم وبناء أنظمة برمجية قابلة للتوسع. أتخصص في التطوير المتكامل وهندسة الأنظمة وإنشاء حلول مبتكرة تدفع النجاح التجاري.',
+        'skills-eyebrow': 'الأدوات التي أستخدمها',
         'skills-title': 'المهارات التقنية',
+        'projects-eyebrow': 'بعض أعمالي',
         'projects-title': 'المشاريع المميزة',
+        'contact-eyebrow': 'لنتحدث',
         'contact-title': 'تواصل معي',
         'contact-subtitle': 'لنتواصل',
         'contact-description': 'أهتم دائماً بسماع الفرص الجديدة والمشاريع المثيرة للاهتمام.',
@@ -174,7 +203,7 @@ const translations = {
         // Footer
         'footer-text': '© 2025 أحمد أمين. جميع الحقوق محفوظة.',
         // Projects
-        'project-hotel-title': 'موقع التجارة الإلكترونية',
+        'project-hotel-title': 'منصة التجارة الإلكترونية',
         'project-hotel-desc': 'منصة تجارة إلكترونية شاملة مع كتالوج المنتجات وسلة التسوق وتكامل الدفع',
         'project-mobile-title': 'تطوير تطبيقات الجوال',
         'project-mobile-desc': 'تطبيقات جوال متعددة المنصات مع تصميم واجهة مستخدم حديث وتكامل خلفي',
@@ -191,16 +220,22 @@ const translations = {
         'nav-skills': 'Fähigkeiten',
         'nav-projects': 'Projekte',
         'nav-contact': 'Kontakt',
+        'hero-badge': 'Verfügbar für neue Projekte',
+        'hero-greeting': 'Hallo, ich bin',
         'hero-subtitle': 'Software-Architektur-Ingenieur & Full-Stack-Entwickler',
         'hero-description': 'Leidenschaftlich für das Design robuster Software-Architekturen und die Entwicklung skalierbarer Anwendungen auf Unternehmensebene mit modernsten Technologien und bewährten Praktiken.',
         'btn-contact': 'Kontakt Aufnehmen',
         'btn-projects': 'Meine Arbeit Ansehen',
         'btn-cv-en': 'Lebenslauf (EN)',
         'btn-cv-fr': 'Lebenslauf (FR)',
+        'about-eyebrow': 'Lernen Sie mich kennen',
         'about-title': 'Über Mich',
         'about-description': 'Ich bin ein leidenschaftlicher Software-Architektur-Ingenieur mit umfangreicher Erfahrung im Design und Aufbau skalierbarer Softwaresysteme. Ich spezialisiere mich auf Full-Stack-Entwicklung, Systemarchitektur und die Schaffung innovativer Lösungen, die den Geschäftserfolg vorantreiben.',
+        'skills-eyebrow': 'Womit ich arbeite',
         'skills-title': 'Technische Fähigkeiten',
+        'projects-eyebrow': 'Einige meiner Arbeiten',
         'projects-title': 'Ausgewählte Projekte',
+        'contact-eyebrow': 'Sprechen wir',
         'contact-title': 'Kontakt Aufnehmen',
         'contact-subtitle': 'Lass Uns Verbinden',
         'contact-description': 'Ich bin immer interessiert daran, von neuen Möglichkeiten und interessanten Projekten zu hören.',
@@ -233,7 +268,7 @@ const translations = {
         // Footer
         'footer-text': '© 2025 Ahmed Amine. Alle Rechte vorbehalten.',
         // Projects
-        'project-hotel-title': 'E-Commerce-Website',
+        'project-hotel-title': 'E-Commerce-Plattform',
         'project-hotel-desc': 'Umfassende E-Commerce-Plattform mit Produktkatalog, Warenkorb und Zahlungsintegration',
         'project-mobile-title': 'Mobile App-Entwicklung',
         'project-mobile-desc': 'Plattformübergreifende mobile Anwendungen mit modernem UI/UX-Design und Backend-Integration',
@@ -248,269 +283,260 @@ const translations = {
 
 let currentLanguage = 'en';
 
-// Navigation functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
+// ============================================================
+//  Init
+// ============================================================
+document.addEventListener('DOMContentLoaded', function () {
+    initNavbar();
+    initThemeToggle();
+    initScrollReveal();
+    initAccordion();
+    initContactForm();
+    initLanguage();
+});
+
+// ============================================================
+//  Navigation
+// ============================================================
+function initNavbar() {
+    // Navbar scroll state + scroll progress + active section
+    const onScroll = () => {
+        if (window.scrollY > 30) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+        updateScrollProgress();
+        highlightActiveSection();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu open/close (with body scroll lock)
+    const openMenu = () => {
+        hamburger.classList.add('active');
+        navMenu.classList.add('active');
+        document.body.classList.add('menu-open');
+        hamburger.setAttribute('aria-expanded', 'true');
+    };
+    const closeMenu = () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+    };
+    const toggleMenu = () => {
+        navMenu.classList.contains('active') ? closeMenu() : openMenu();
+    };
+
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
     });
 
-    // Mobile menu toggle
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
+    // Close on Escape, on tap outside, and when resizing up to desktop
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') &&
+            !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            closeMenu();
+        }
+    });
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) closeMenu();
     });
 
-    // Close mobile menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-
-    // Active navigation link highlighting
-    const sections = document.querySelectorAll('section');
-    
-    function highlightActiveSection() {
-        let current = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (window.scrollY >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('data-section') === current) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    window.addEventListener('scroll', highlightActiveSection);
-
-    // Smooth scrolling for navigation links
+    // Smooth scroll + close menu on link click
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetId = link.getAttribute('data-section');
-            const targetSection = document.getElementById(targetId);
-            
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 80;
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
-            }
+            closeMenu();
+            scrollToSection(link.getAttribute('data-section'));
         });
     });
 
-    // Skill bars animation
-    const animateSkillBars = () => {
-        skillProgressBars.forEach((bar, index) => {
-            const skillLevel = bar.getAttribute('data-skill');
-            if (skillLevel && !isNaN(skillLevel)) {
-                // Reset width first, then animate with staggered delay
-                bar.style.width = '0%';
-                setTimeout(() => {
-                    bar.style.width = skillLevel + '%';
-                }, 100 + (index * 50)); // Staggered animation
-            }
-        });
-    };
-
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate');
-                
-                // Animate skill bars when skills section is visible
-                if (entry.target.id === 'skills') {
-                    setTimeout(animateSkillBars, 300);
-                }
-                
-                // Animate stats counters
-                if (entry.target.classList.contains('about-stats')) {
-                    animateCounters();
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe sections for animations
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-
-    // Observe stats section
-    const statsSection = document.querySelector('.about-stats');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-
-    // Counter animation for stats
-    function animateCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        
-        counters.forEach(counter => {
-            const target = parseInt(counter.innerText);
-            const increment = target / 50;
-            let count = 0;
-            
-            const updateCounter = () => {
-                if (count < target) {
-                    count += increment;
-                    counter.innerText = Math.ceil(count) + '+';
-                    setTimeout(updateCounter, 30);
-                } else {
-                    counter.innerText = target + '+';
-                }
-            };
-            
-            updateCounter();
-        });
-    }
-
-    // Contact form handling
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
+    // Logo + scroll cue use data-section too
+    document.querySelectorAll('[data-section]').forEach(el => {
+        if (el.classList.contains('nav-link')) return;
+        el.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
-            
-            // Simple form validation
-            if (!name || !email || !subject || !message) {
-                showNotification('Please fill in all fields', 'error');
-                return;
-            }
-            
-            if (!isValidEmail(email)) {
-                showNotification('Please enter a valid email address', 'error');
-                return;
-            }
-            
-            // Create mailto link with form data
-            const mailtoLink = createMailtoLink(name, email, subject, message);
-            
-            // Open user's email client with pre-filled data
-            window.location.href = mailtoLink;
-            
-            // Show success notification
-            showNotification('Opening your email client...', 'success');
-            
-            // Reset form after a short delay
-            setTimeout(() => {
-                contactForm.reset();
-            }, 1000);
-        });
-    }
-
-    // Typing effect for hero title
-    const heroTitle = document.querySelector('.hero-title');
-    if (heroTitle) {
-        const text = "Hi, I'm Ahmed Amine";
-        const highlightText = "Ahmed Amine";
-        let index = 0;
-        
-        // Clear existing content
-        heroTitle.innerHTML = '';
-        
-        function typeWriter() {
-            if (index < text.length) {
-                const char = text.charAt(index);
-                if (index === text.indexOf(highlightText)) {
-                    heroTitle.innerHTML += '<span class="highlight">' + highlightText + '</span>';
-                    index += highlightText.length;
-                } else if (index < text.indexOf(highlightText)) {
-                    heroTitle.innerHTML += char;
-                    index++;
-                } else {
-                    index++;
-                }
-                
-                setTimeout(typeWriter, 100);
-            }
-        }
-        
-        // Start typing effect after page load
-        setTimeout(typeWriter, 1000);
-    }
-
-    // Parallax effect for hero section
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        
-        if (hero) {
-            const speed = scrolled * 0.5;
-            hero.style.transform = `translateY(${speed}px)`;
-        }
-    });
-
-    // Dynamic background particles
-    createParticles();
-
-    // Language switching functionality
-    const langButtons = document.querySelectorAll('.lang-btn');
-    langButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const lang = btn.dataset.lang;
-            switchLanguage(lang);
-            
-            // Update active button
-            langButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            scrollToSection(el.getAttribute('data-section'));
         });
     });
+}
 
-    // Load saved language or default to English
-    const savedLang = localStorage.getItem('preferred-language') || 'en';
-    switchLanguage(savedLang);
-    
-    // Update active button
-    langButtons.forEach(b => b.classList.remove('active'));
-    const activeBtn = document.querySelector(`[data-lang="${savedLang}"]`);
-    if (activeBtn) {
-        activeBtn.classList.add('active');
-    }
-});
+function updateScrollProgress() {
+    if (!scrollProgress) return;
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    scrollProgress.style.width = pct + '%';
+}
 
-// Utility functions
+function highlightActiveSection() {
+    const sections = document.querySelectorAll('section');
+    let current = '';
+    sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('data-section') === current);
+    });
+}
+
 function scrollToSection(sectionId) {
     const section = document.getElementById(sectionId);
-    if (section) {
-        const offsetTop = section.offsetTop - 80;
-        window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
+    if (!section) return;
+    const offsetTop = section.offsetTop - 70;
+    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+}
+
+// ============================================================
+//  Theme toggle (data-theme on <html>, persisted)
+// ============================================================
+function initThemeToggle() {
+    if (!themeToggle) return;
+    themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', next === 'dark' ? '#0b1120' : '#0ea5e9');
+    });
+}
+
+// ============================================================
+//  Scroll reveal + skill bars + counters (IntersectionObserver)
+// ============================================================
+function initScrollReveal() {
+    const revealEls = document.querySelectorAll('.reveal');
+
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+        revealEls.forEach(el => el.classList.add('visible'));
+        animateSkillBars();
+        animateCounters();
+        return;
+    }
+
+    // Stagger siblings within the same parent
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
+            const idx = Math.max(0, siblings.indexOf(el));
+            el.style.transitionDelay = (idx * 90) + 'ms';
+            el.classList.add('visible');
+            observer.unobserve(el);
         });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // Skill bars when skills section enters
+    const skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+        const skillObs = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { animateSkillBars(); obs.disconnect(); }
+            });
+        }, { threshold: 0.2 });
+        skillObs.observe(skillsSection);
+    }
+
+    // Counters when stats enter
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+        const statObs = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) { animateCounters(); obs.disconnect(); }
+            });
+        }, { threshold: 0.4 });
+        statObs.observe(statsSection);
     }
 }
 
+function animateSkillBars() {
+    skillProgressBars.forEach((bar, index) => {
+        const skillLevel = bar.getAttribute('data-skill');
+        if (skillLevel && !isNaN(skillLevel)) {
+            bar.style.width = '0%';
+            setTimeout(() => { bar.style.width = skillLevel + '%'; }, 80 + index * 40);
+        }
+    });
+}
+
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
+    counters.forEach(counter => {
+        const target = parseInt(counter.innerText, 10);
+        if (isNaN(target)) return;
+        if (prefersReducedMotion) { counter.innerText = target + '+'; return; }
+        let count = 0;
+        const increment = target / 50;
+        const update = () => {
+            if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + '+';
+                setTimeout(update, 30);
+            } else {
+                counter.innerText = target + '+';
+            }
+        };
+        update();
+    });
+}
+
+// ============================================================
+//  Projects accordion (single open, first open by default)
+// ============================================================
+function initAccordion() {
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        const header = card.querySelector('.project-header');
+        header.addEventListener('click', () => {
+            const isActive = card.classList.contains('active');
+            projectCards.forEach(c => c.classList.remove('active'));
+            if (!isActive) card.classList.add('active');
+        });
+    });
+    if (projectCards.length > 0) projectCards[0].classList.add('active');
+}
+
+// ============================================================
+//  Contact form (validation + mailto + notification)
+// ============================================================
+function initContactForm() {
+    if (!contactForm) return;
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const subject = formData.get('subject');
+        const message = formData.get('message');
+
+        if (!name || !email || !subject || !message) {
+            showNotification('Please fill in all fields', 'error');
+            return;
+        }
+        if (!isValidEmail(email)) {
+            showNotification('Please enter a valid email address', 'error');
+            return;
+        }
+
+        window.location.href = createMailtoLink(name, email, subject, message);
+        showNotification('Opening your email client...', 'success');
+        setTimeout(() => contactForm.reset(), 1000);
+    });
+}
+
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function createMailtoLink(name, email, subject, message) {
@@ -529,690 +555,87 @@ ${message}
 
 Best regards,
 ${name}`;
+    return `mailto:${recipient}?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+}
 
-    // Encode the components for URL
-    const encodedSubject = encodeURIComponent(mailtoSubject);
-    const encodedBody = encodeURIComponent(mailtoBody);
-    
-    return `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`;
+// ============================================================
+//  Language switching
+// ============================================================
+function initLanguage() {
+    const langButtons = document.querySelectorAll('.lang-btn');
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.dataset.lang;
+            switchLanguage(lang);
+            langButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
+
+    const savedLang = localStorage.getItem('preferred-language') || 'en';
+    switchLanguage(savedLang);
+    langButtons.forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`[data-lang="${savedLang}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
 }
 
 function switchLanguage(lang) {
     currentLanguage = lang;
-    
-    // Save language preference
     localStorage.setItem('preferred-language', lang);
-    
-    // Update HTML lang attribute
     document.documentElement.lang = lang;
-    
-    // Handle RTL for Arabic
+
     if (lang === 'ar') {
         document.body.classList.add('rtl');
+        document.documentElement.dir = 'rtl';
     } else {
         document.body.classList.remove('rtl');
+        document.documentElement.dir = 'ltr';
     }
-    
-    // Update all translatable elements
-    const elements = document.querySelectorAll('[data-translate]');
-    elements.forEach(element => {
+
+    const dict = translations[lang];
+    if (!dict) return;
+
+    document.querySelectorAll('[data-translate]').forEach(element => {
         const key = element.dataset.translate;
-        if (translations[lang] && translations[lang][key]) {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
-            }
+        if (!dict[key]) return;
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = dict[key];
+        } else {
+            element.textContent = dict[key];
         }
     });
-    
-    // Update form placeholders specifically
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const subjectInput = document.getElementById('subject');
-    const messageInput = document.getElementById('message');
-    
-    if (nameInput && translations[lang]['form-name']) {
-        nameInput.placeholder = translations[lang]['form-name'];
-    }
-    if (emailInput && translations[lang]['form-email']) {
-        emailInput.placeholder = translations[lang]['form-email'];
-    }
-    if (subjectInput && translations[lang]['form-subject']) {
-        subjectInput.placeholder = translations[lang]['form-subject'];
-    }
-    if (messageInput && translations[lang]['form-message']) {
-        messageInput.placeholder = translations[lang]['form-message'];
-    }
+
+    // Form placeholders
+    const map = { name: 'form-name', email: 'form-email', subject: 'form-subject', message: 'form-message' };
+    Object.entries(map).forEach(([id, key]) => {
+        const input = document.getElementById(id);
+        if (input && dict[key]) input.placeholder = dict[key];
+    });
 }
 
+// ============================================================
+//  Notifications
+// ============================================================
 function showNotification(message, type = 'info') {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
         <div class="notification-content">
             <span class="notification-message">${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-    
-    // Add styles
-    const styles = {
-        position: 'fixed',
-        top: '20px',
-        right: '20px',
-        padding: '1rem 1.5rem',
-        borderRadius: '8px',
-        color: 'white',
-        fontWeight: '500',
-        zIndex: '10000',
-        transform: 'translateX(400px)',
-        transition: 'transform 0.3s ease',
-        maxWidth: '400px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
-    };
-    
-    const typeStyles = {
-        success: { background: '#27ae60' },
-        error: { background: '#e74c3c' },
-        info: { background: '#3498db' }
-    };
-    
-    Object.assign(notification.style, styles, typeStyles[type]);
-    
-    // Add to DOM
+            <button class="notification-close" aria-label="Close">&times;</button>
+        </div>`;
     document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        removeNotification(notification);
-    }, 5000);
-    
-    // Close button functionality
-    const closeBtn = notification.querySelector('.notification-close');
-    closeBtn.addEventListener('click', () => {
+
+    requestAnimationFrame(() => notification.classList.add('show'));
+
+    const timer = setTimeout(() => removeNotification(notification), 5000);
+    notification.querySelector('.notification-close').addEventListener('click', () => {
+        clearTimeout(timer);
         removeNotification(notification);
     });
-    
-    closeBtn.style.cssText = `
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        margin-left: 1rem;
-        padding: 0;
-    `;
-    
-    notification.querySelector('.notification-content').style.cssText = `
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    `;
 }
 
 function removeNotification(notification) {
-    notification.style.transform = 'translateX(400px)';
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.parentNode.removeChild(notification);
-        }
-    }, 300);
+    notification.classList.remove('show');
+    setTimeout(() => notification.remove(), 400);
 }
-
-function createParticles() {
-    const hero = document.querySelector('.hero');
-    if (!hero) return;
-    
-    const particlesContainer = document.createElement('div');
-    particlesContainer.className = 'particles-container';
-    particlesContainer.style.cssText = `
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 0;
-    `;
-    
-    hero.appendChild(particlesContainer);
-    
-    // Create particles
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 4 + 2;
-        const left = Math.random() * 100;
-        const animationDuration = Math.random() * 20 + 10;
-        const opacity = Math.random() * 0.5 + 0.2;
-        
-        particle.style.cssText = `
-            position: absolute;
-            width: ${size}px;
-            height: ${size}px;
-            background: rgba(255, 255, 255, ${opacity});
-            border-radius: 50%;
-            left: ${left}%;
-            bottom: -10px;
-            animation: floatUp ${animationDuration}s linear infinite;
-            animation-delay: ${Math.random() * 5}s;
-        `;
-        
-        particlesContainer.appendChild(particle);
-    }
-    
-    // Add CSS animation for particles
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// Theme switcher (bonus feature)
-function initThemeSwitcher() {
-    const themeToggle = document.createElement('button');
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    themeToggle.className = 'theme-toggle';
-    themeToggle.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        border: none;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        font-size: 1.3rem;
-        cursor: pointer;
-        z-index: 1000;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    `;
-    
-    themeToggle.addEventListener('mouseenter', () => {
-        themeToggle.style.transform = 'scale(1.15) rotate(15deg)';
-        themeToggle.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.6)';
-    });
-    
-    themeToggle.addEventListener('mouseleave', () => {
-        themeToggle.style.transform = 'scale(1) rotate(0deg)';
-        themeToggle.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
-    });
-    
-    document.body.appendChild(themeToggle);
-    
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-theme');
-        const isDark = document.body.classList.contains('dark-theme');
-        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        
-        // Update button style for dark mode
-        if (isDark) {
-            themeToggle.style.background = 'linear-gradient(135deg, #60a5fa 0%, #818cf8 100%)';
-            themeToggle.style.boxShadow = '0 4px 15px rgba(96, 165, 250, 0.5)';
-        } else {
-            themeToggle.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-            themeToggle.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.4)';
-        }
-        
-        // Save theme preference
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-    
-    // Load saved theme
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-theme');
-        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        themeToggle.style.background = 'linear-gradient(135deg, #60a5fa 0%, #818cf8 100%)';
-        themeToggle.style.boxShadow = '0 4px 15px rgba(96, 165, 250, 0.5)';
-    }
-}
-
-// Initialize theme switcher
-document.addEventListener('DOMContentLoaded', initThemeSwitcher);
-
-// Add dark theme styles
-const darkThemeStyles = `
-    .dark-theme {
-        --bg-primary: #0f172a;
-        --bg-secondary: #1e293b;
-        --bg-card: #1e293b;
-        --bg-hover: #334155;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --text-muted: #94a3b8;
-        --border-color: #334155;
-        --accent-primary: #60a5fa;
-        --accent-secondary: #818cf8;
-        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-        --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-    
-    /* Base Styles */
-    .dark-theme body {
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-    }
-    
-    /* Navigation */
-    .dark-theme .navbar {
-        background: rgba(15, 23, 42, 0.95);
-        border-bottom: 1px solid var(--border-color);
-    }
-    
-    .dark-theme .navbar.scrolled {
-        background: rgba(15, 23, 42, 0.98);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .dark-theme .nav-logo .logo-text {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .nav-link {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .nav-link:hover,
-    .dark-theme .nav-link.active {
-        color: var(--accent-primary);
-    }
-    
-    .dark-theme .lang-btn {
-        background: var(--bg-secondary);
-        border: 1px solid var(--border-color);
-    }
-    
-    .dark-theme .lang-btn:hover {
-        background: var(--bg-hover);
-        border-color: var(--accent-primary);
-    }
-    
-    .dark-theme .lang-btn.active {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-    }
-    
-    /* Hero Section */
-    .dark-theme .hero {
-        background: linear-gradient(135deg, #1e3a8a 0%, #5b21b6 100%);
-    }
-    
-    .dark-theme .profile-card {
-        background: rgba(30, 41, 59, 0.4);
-        border: 1px solid var(--border-color);
-    }
-    
-    .dark-theme .profile-avatar {
-        background: rgba(96, 165, 250, 0.2);
-        border: 2px solid var(--accent-primary);
-    }
-    
-    /* About Section */
-    .dark-theme .about {
-        background: var(--bg-secondary);
-    }
-    
-    .dark-theme .section-title {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .about-description {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .stat-item {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
-    }
-    
-    .dark-theme .stat-number {
-        color: var(--accent-primary);
-    }
-    
-    .dark-theme .stat-label {
-        color: var(--text-muted);
-    }
-    
-    .dark-theme .timeline-item {
-        border-left: 2px solid var(--border-color);
-    }
-    
-    .dark-theme .timeline-dot {
-        background: var(--accent-primary);
-        border: 3px solid var(--bg-secondary);
-    }
-    
-    .dark-theme .timeline-content h4 {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .timeline-date {
-        color: var(--text-muted);
-    }
-    
-    /* Skills Section */
-    .dark-theme .skills {
-        background: var(--bg-primary);
-    }
-    
-    .dark-theme .skill-category {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
-    }
-    
-    .dark-theme .skill-category:hover {
-        border-color: var(--accent-primary);
-        box-shadow: var(--shadow-md);
-    }
-    
-    .dark-theme .skill-category h3 {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .skill-item span {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .skill-bar {
-        background: var(--bg-hover);
-    }
-    
-    .dark-theme .skill-progress {
-        background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-    }
-    
-    /* Projects Section */
-    .dark-theme .projects {
-        background: var(--bg-secondary);
-    }
-    
-    .dark-theme .project-card {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
-    }
-    
-    .dark-theme .project-card.active {
-        box-shadow: var(--shadow-md);
-        border-color: var(--accent-primary);
-    }
-    
-    .dark-theme .project-header:hover {
-        background: var(--bg-hover);
-    }
-    
-    .dark-theme .project-icon-wrapper {
-        background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
-    }
-    
-    .dark-theme .project-title-wrapper h3 {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .project-summary {
-        color: var(--text-muted);
-    }
-    
-    .dark-theme .accordion-toggle {
-        color: var(--accent-primary);
-    }
-    
-    .dark-theme .project-content p {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .tech-tag {
-        background: var(--bg-hover);
-        color: var(--text-secondary);
-        border: 1px solid var(--border-color);
-    }
-    
-    .dark-theme .project-link {
-        color: var(--accent-primary);
-    }
-    
-    .dark-theme .project-link:hover {
-        color: var(--accent-secondary);
-    }
-    
-    /* Contact Section */
-    .dark-theme .contact {
-        background: var(--bg-primary);
-    }
-    
-    .dark-theme .contact-info h3 {
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .contact-info p {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .contact-item {
-        color: var(--text-secondary);
-    }
-    
-    .dark-theme .contact-item i {
-        color: var(--accent-primary);
-    }
-    
-    .dark-theme .social-link {
-        background: var(--bg-card);
-        color: var(--text-primary);
-        border: 1px solid var(--border-color);
-    }
-    
-    .dark-theme .social-link:hover {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-        color: white;
-    }
-    
-    .dark-theme .contact-form {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        box-shadow: var(--shadow-sm);
-    }
-    
-    .dark-theme input,
-    .dark-theme textarea {
-        background: var(--bg-hover);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-    }
-    
-    .dark-theme input:focus,
-    .dark-theme textarea:focus {
-        border-color: var(--accent-primary);
-        background: var(--bg-secondary);
-        box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
-    }
-    
-    .dark-theme input::placeholder,
-    .dark-theme textarea::placeholder {
-        color: var(--text-muted);
-    }
-    
-    /* Buttons */
-    .dark-theme .btn-primary {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-    }
-    
-    .dark-theme .btn-primary:hover {
-        background: var(--accent-secondary);
-        border-color: var(--accent-secondary);
-        box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
-    }
-    
-    .dark-theme .btn-secondary {
-        background: transparent;
-        border: 2px solid var(--accent-primary);
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .btn-secondary:hover {
-        background: var(--accent-primary);
-        border-color: var(--accent-primary);
-    }
-    
-    .dark-theme .btn-download {
-        background: rgba(96, 165, 250, 0.15);
-        border: 2px solid rgba(96, 165, 250, 0.3);
-        color: var(--text-primary);
-    }
-    
-    .dark-theme .btn-download:hover {
-        background: rgba(96, 165, 250, 0.25);
-        border-color: var(--accent-primary);
-        box-shadow: 0 5px 15px rgba(96, 165, 250, 0.3);
-    }
-    
-    /* Footer */
-    .dark-theme .footer {
-        background: var(--bg-secondary);
-        border-top: 1px solid var(--border-color);
-        color: var(--text-secondary);
-    }
-    
-    /* Scrollbar */
-    .dark-theme::-webkit-scrollbar {
-        width: 12px;
-    }
-    
-    .dark-theme::-webkit-scrollbar-track {
-        background: var(--bg-primary);
-    }
-    
-    .dark-theme::-webkit-scrollbar-thumb {
-        background: var(--bg-hover);
-        border-radius: 6px;
-        border: 2px solid var(--bg-primary);
-    }
-    
-    .dark-theme::-webkit-scrollbar-thumb:hover {
-        background: var(--accent-primary);
-    }
-    
-    /* Selection */
-    .dark-theme ::selection {
-        background: var(--accent-primary);
-        color: white;
-    }
-`;
-
-const darkStyle = document.createElement('style');
-darkStyle.textContent = darkThemeStyles;
-document.head.appendChild(darkStyle);
-
-// Performance optimization: Lazy loading for images
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.remove('lazy');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
-
-// Initialize lazy loading
-document.addEventListener('DOMContentLoaded', initLazyLoading);
-
-// Add some interactive hover effects
-document.addEventListener('DOMContentLoaded', () => {
-    // Project Accordion Functionality
-    const projectCards = document.querySelectorAll('.project-card');
-    
-    projectCards.forEach(card => {
-        const header = card.querySelector('.project-header');
-        
-        header.addEventListener('click', () => {
-            // Check if this card is already active
-            const isActive = card.classList.contains('active');
-            
-            // Close all cards
-            projectCards.forEach(c => c.classList.remove('active'));
-            
-            // If the clicked card wasn't active, open it
-            if (!isActive) {
-                card.classList.add('active');
-            }
-        });
-    });
-
-    // Optional: Open the first project by default
-    if (projectCards.length > 0) {
-        projectCards[0].classList.add('active');
-    }
-    
-    // Add hover effect to skill categories
-    const skillCategories = document.querySelectorAll('.skill-category');
-    skillCategories.forEach(category => {
-        category.addEventListener('mouseenter', () => {
-            category.style.transform = 'translateY(-5px) scale(1.02)';
-        });
-        
-        category.addEventListener('mouseleave', () => {
-            category.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Fallback skill bar animation on scroll
-    let skillBarsAnimated = false;
-    window.addEventListener('scroll', () => {
-        if (!skillBarsAnimated) {
-            const skillsSection = document.getElementById('skills');
-            if (skillsSection) {
-                const rect = skillsSection.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                
-                if (rect.top < windowHeight && rect.bottom > 0) {
-                    animateSkillBars();
-                    skillBarsAnimated = true;
-                }
-            }
-        }
-    });
-});
